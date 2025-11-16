@@ -579,7 +579,7 @@ Captura de `app.routes.ts`
 
 ![Captura de proyecto_page](src/app/assets/09_parte1_funcionamiento.png)
 
-![Captura de nav-bar.html](src/app/assets/10_parte1_funcionamiento.png)
+![Captura de nav-bar.html](src/app/assets/10_parte2_funcionamiento.png)
 
 ## 🔗 Enlaces del Proyecto
 
