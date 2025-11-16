@@ -1,0 +1,12 @@
+<section class="page">
+  <p class="badge"> Primer Componente </p>
+  <h1 class="tittle"> Mi primera pagina </h1>
+
+  <h1>Contador: {{ counter }}</h1>
+  <h1>Contador Signal: {{ conterSignal() }}</h1>
+  <div class="actions">
+    <button (click)="changeValue(1)">Incrementar</button>
+    <button (click)="changeValue(-1)">Restar</button>
+    <button (click)="resetValue(0)">Resetear</button>
+  </div>
+</section>
