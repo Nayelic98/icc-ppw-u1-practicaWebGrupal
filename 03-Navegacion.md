@@ -11,7 +11,7 @@
 ### Autores
 
 **Nayeli Barbecho y Jordy Romero**  
-📧 ptorersp@ups.edu.ec  
+
 💻 GitHub: [Nayeli Barbecho y Jordy Romero](https://github.com/Nayelic98/icc-ppw-u1-practicaWebGrupal.git)
 
 
