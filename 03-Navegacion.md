@@ -560,24 +560,26 @@ export class ListadoProyectos {
 ## �📸 Capturas de Implementación
 
 ### 1. Configuración de Rutas (app.routes.ts)
-1. Captura de `app.routes.ts`  
-![Captura de app.routes.ts](assets/07_app_routers.png)
+Captura de `app.routes.ts`  
+![Captura de app.routes.ts](src/app/assets/07_app_routers.png)
 
-### 2. Navegación con RouterLink
-2. Navegación con RouterLink `nav-bar.html`  
+---
 
-![Captura de nav-bar.html](assets/08_nav_bar.png)
-### 3. Componente con Navegación
-2.Componente con Navegación `nav-bar.ts` 
-![Captura de nav-bar.html](assets/11_nav_bar_ts.png)
+### 2. Navegación con RouterLink (`nav-bar.html`)
+![Captura de nav-bar.html](src/app/assets/08_nav_bar.png)
+
+---
+
+### 3. Componente con Navegación (`nav-bar.ts`)
+![Captura del nav-bar.ts](src/app/assets/11_nav_bar_ts.png)
+
+---
+
 ### 4. Aplicación Funcionando
 
+![Captura de proyecto_page](src/app/assets/09_parte1_funcionamiento.png)
 
-![Captura de proyecto_page](assets/09_parte1_funcionamiento.png)
-
-![Captura de nav-bar.html](assets/10_parte1_funcionamiento.png)
-
-
+![Captura de nav-bar.html](src/app/assets/10_parte1_funcionamiento.png)
 
 ## 🔗 Enlaces del Proyecto
 
