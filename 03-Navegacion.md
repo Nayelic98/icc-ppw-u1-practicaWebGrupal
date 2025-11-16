@@ -582,7 +582,7 @@ export class ListadoProyectos {
 ## 🔗 Enlaces del Proyecto
 
 - **Repositorio GitHub**: [[Enlace al repositorio](https://github.com/Nayelic98/icc-ppw-u1-practicaWebGrupal.git)]
-- **GitHub Pages**: [Enlace a la aplicación desplegada]
+- **GitHub Pages**: [\[Enlace a la aplicación desplegada\]](https://nayelic98.github.io/icc-ppw-u1-practicaWebGrupal/)
 
 
 ## 📝 Notas de Implementación
