@@ -10,9 +10,9 @@
 
 ### Autores
 
-**Pablo Torres**  
+**Nayeli Barbecho y Jordy Romero**  
 📧 ptorersp@ups.edu.ec  
-💻 GitHub: [PabloT18](https://github.com/PabloT18)
+💻 GitHub: [Nayeli Barbecho y Jordy Romero](https://github.com/Nayelic98/icc-ppw-u1-practicaWebGrupal.git)
 
 
 
@@ -336,46 +336,252 @@ Sigue estos pasos para implementar la navegación en tu proyecto Angular:
 
 #### 1.1 Crear ProyectosPage
 
-#### 1.2 Crear ProyectosDosPage
+```typescript
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ListadoProyectos } from './components/listado-proyectos/listado-proyectos';
 
+@Component({
+  selector: 'app-proyecto-page',
+  imports: [ListadoProyectos],
+  templateUrl: './proyecto-page.html',
+  styleUrl: './proyecto-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProyectoPage {
+
+  name = signal('');
+  description= signal('');
+
+  proyectos= signal<Proyecto[]>([
+    {id: 1, nombre: 'Proyecto 1', 
+    descripcion: 'Descripción del Proyecto 1'},
+  ]);
+
+changeName(value: string){
+  this.name.set(value);
+}
+changeDescription(value: string){
+  this.description.set(value);
+}
+addProyecto(){
+  const newProyecto: Proyecto = {
+    id: this.proyectos().length + 1,
+    nombre: this.name(),
+    descripcion: this.description()
+  };
+  this.proyectos.set([...this.proyectos(), newProyecto]);
+  this.name.set('');
+  this.description.set('');
+}
+dellFirstproyecto(){
+  this.proyectos.set(this.proyectos().slice(1));  
+}
+
+}
+```
+#### 1.2 Crear ProyectosDosPage
+```typescript
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ProyectosServiceTs } from './services/proyectos-service.ts';
+import { ListadoProyectos } from "../proyecto-page/components/listado-proyectos/listado-proyectos";
+import { AddProyecto } from '../proyecto-page/components/listado-proyectos/add-proyecto/add-proyecto.js';
+
+@Component({
+  selector: 'app-proyectos-dos-page',
+  imports: [ListadoProyectos, AddProyecto],
+  templateUrl: './proyectos-dos-page.html',
+  styleUrl: './proyectos-dos-page.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProyectosDosPage {
+  proyectosService= inject(ProyectosServiceTs);
+ }
+
+```
 
 ### Paso 2: Configurar las Rutas
+```typescript
 
+import { Routes } from '@angular/router';
+import { HomePages } from './features/HomePages/HomePages';
+import { PerfilPages } from './features/PerfilPages/PerfilPages';
+import { ProyectoPage } from './features/proyecto-page/proyecto-page';
+import { ProyectosDosPage } from './features/proyectos-dos-page/proyectos-dos-page';
+import { FormularioPage } from './features/FormularioPage/FormularioPage';
+export const routes: Routes = [
+  { path: '', component: HomePages, title: 'Home' },
+  { path: 'perfil', component: PerfilPages, title: 'PerfilPages' },
+  { path: 'proyecto', component: ProyectoPage, title: 'Proyecto' },
+  { path: 'proyectodos', component: ProyectosDosPage, title: 'ProyectoDosPage' },
+  { path: 'formulario', component: FormularioPage, title: 'formulario' },
+  { path: '**', redirectTo: '' }
+];
 
+```
 ### Paso 3: Agregar al Navbar
+```typescript
+<nav>
+    <!--a href="/">Home</!--a>
+    <a-- href="/perfil">About</a-->
+    <a routerLink="" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Home </a> 
+    <a routerLink="/perfil"
+    routerLinkActive="active">Perfil</a>
+    <a routerLink="/proyecto"
+    routerLinkActive="active">Proyecto</a>
+    <a routerLink="/proyectodos"
+    routerLinkActive="active">Proyecto dos</a>
+    <a routerLink="/formulario"
+    routerLinkActive="active">Formularios</a>
 
+</nav>
+```
 ### Paso 4: Crear Componentes para Proyectos y separarlos en componentes indivuduals
 
 #### 4.1 Crear Componente para Agregar Proyectos
+```typescript
+import { ChangeDetectionStrategy, Component, output,signal} from '@angular/core';
 
+@Component({
+  selector: 'add-proyecto',
+  imports: [],
+  templateUrl: './add-proyecto.html',
+  styleUrl: './add-proyecto.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class AddProyecto {
+  name = signal('');
+  description= signal('');
+  newProyecto= output<Proyecto>();
+  removeProyecto= output<number>();
+ 
+  addProyecto(){
+    const newProyecto: Proyecto = {
+      id:Math.floor (Math.random()*100),
+      nombre: this.name(),
+      descripcion: this.description()
+    };
+    this.newProyecto.emit(newProyecto);
+    this.name.set('');
+    this.description.set('');
+  }
+  changeName(value: string){
+  this.name.set(value);
+}
+dellFirstproyecto(id:number){
+  this.removeProyecto.emit(id);
+}
+changeDescription(value: string){
+  this.description.set(value);
+}
+ }
+
+```
 #### 4.2 Crear Componente para Lista de Proyectos
+```typescript
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
+@Component({
+  selector: 'listado-proyectos',
+  imports: [],
+  templateUrl: './listado-proyectos.html',
+  styleUrl: './listado-proyectos.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ListadoProyectos {
+  listName = input.required<string>();
+  proyectos = input.required<Proyecto[]>();
+ }
+
+```
 
 ### Paso 5: Implementar la Página de Proyectos
+```typescript
+<h1>Proyectos Page Works!</h1>
+<section>
+  <div>
+    <h3>Lista de Proyectos</h3>
+    <h4>Proyecto Agregar {{name()}}</h4>
 
+    <input 
+      type="text" 
+      placeholder="Nombre del proyecto"
+      [value]="name()"
+      (change)="changeName(txtName.value)"
+      #txtName
+    >
+
+    <input 
+      type="text" 
+      placeholder="Descripción del proyecto"
+      [value]="description()"
+      (change)="changeDescription(txtdescription.value)"
+      #txtdescription
+    >
+
+    <button (click)="addProyecto()">Agregar Proyecto</button>
+    
+  </div>
+
+  <div>
+    <h3>Listado</h3>
+    <ul>
+      @for(proyecto of proyectos(); track $index) {
+        <li>{{proyecto.nombre}} - {{proyecto.descripcion}}</li>
+      }
+    </ul>
+  </div>
+
+
+  <listado-proyectos 
+    listName="'Listado de Proyectos'" 
+    [proyectos]="proyectos()">
+  </listado-proyectos>
+</section>
+
+```
 ### Paso 6: Implementar la Página ProyectosDos
+```typescript
+<listado-proyectos 
+    listName="Listado de Proyectos" 
+    [proyectos]="proyectosService.proyectos()">
+</listado-proyectos>    
+<p>Aqui debe estar un componente que agregue al servicio</p>
+<add-proyecto
+    (newProyecto)="proyectosService.addProyecto($event)" 
+    (removeProyecto)="proyectosService.dellFirstproyecto()">
 
+
+</add-proyecto>
+
+```
 
 ## �📸 Capturas de Implementación
 
 ### 1. Configuración de Rutas (app.routes.ts)
-*[Insertar código del archivo app.routes.ts mostrando la configuración de rutas]*
+1. Captura de `app.routes.ts`  
+![Captura de app.routes.ts](assets/07_app_routers.png)
 
 ### 2. Navegación con RouterLink
-*[Insertar código del template HTML mostrando ambos tipos de sintaxis de routerLink]*
+2. Navegación con RouterLink `nav-bar.html`  
 
+![Captura de nav-bar.html](assets/08_nav_bar.png)
 ### 3. Componente con Navegación
-*[Insertar código del código TypeScript del componente con navegación]*
-
+2.Componente con Navegación `nav-bar.ts` 
+![Captura de nav-bar.html](assets/11_nav_bar_ts.png)
 ### 4. Aplicación Funcionando
-*[Insertar captura de la aplicación en el navegador mostrando la navegación entre diferentes vistas]*
 
+
+![Captura de proyecto_page](assets/09_parte1_funcionamiento.png)
+
+![Captura de nav-bar.html](assets/10_parte1_funcionamiento.png)
 
 
 
 ## 🔗 Enlaces del Proyecto
 
-- **Repositorio GitHub**: [Enlace al repositorio]
+- **Repositorio GitHub**: [[Enlace al repositorio](https://github.com/Nayelic98/icc-ppw-u1-practicaWebGrupal.git)]
 - **GitHub Pages**: [Enlace a la aplicación desplegada]
 
 
