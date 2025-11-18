@@ -5,8 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   selector: 'app-nav-bar',
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './nav-bar.html',
-  styles: [ `
-    nav {
+  styles: [ `nav{
       background-color: #159;
       padding: 1rem;
     }
@@ -15,14 +14,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       margin-right: 1rem;
       text-decoration: none;
     }
-    a.active {
-      color: yellow;
+    a.active{
+      color:yellow;
       text-decoration: underline;
     }
-    a:hover {
+    <a.hover{
       text-decoration: underline;
     }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavBar {}
+export class NavBar { }
